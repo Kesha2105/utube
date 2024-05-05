@@ -48,7 +48,7 @@ def index():
                 return render_template('index.html', message="Conversion completed successfully!", audio_file_path=audio_file_path, video_file_path=video_file_path)       
         except Exception as e:
             return render_template('index.html', error="An error occurred: {}".format(str(e)))
-        
+    return render_template('index.html')
 
 def download_video(link):
     youtube_object = YouTube(link)

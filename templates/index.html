@@ -73,6 +73,13 @@
         {% endif %}
     </div>
     <script>
+           setTimeout(function() {
+            var successMsg = document.getElementById('successMsg');
+            if (successMsg) {
+                successMsg.style.visibility = 'hidden'; // Hide the success message
+            }
+        }, 1000); // Hide after 1000 milliseconds (1 second)
+
         function playVideo(videoPath) {
             window.location.href = "/play_video?video_file_path=" + encodeURIComponent(videoPath);
         }
