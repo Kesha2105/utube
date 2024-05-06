@@ -86,4 +86,4 @@ def play_audio():
         return "Audio file not found."
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
