@@ -1,27 +1,3 @@
-# from flask import Flask, render_template, request
-# from pytube import YouTube
-
-# app = Flask(__name__)
-
-# @app.route('/', methods=['GET', 'POST'])
-# def index():
-#     if request.method == 'POST':
-#         link = request.form['youtube_link']
-        
-#         try:
-#             download_video(link)
-#             return render_template('index.html', message="Download completed successfully!")
-#         except Exception as e:
-#             return render_template('index.html', error="An error occurred: {}".format(str(e)))
-#     return render_template('index.html')
-
-# def download_video(link):
-#     youtube_object = YouTube(link)
-#     video_stream = youtube_object.streams.get_highest_resolution()
-#     video_stream.download()
-    
-# if __name__ == '__main__':
-#     app.run(debug=True)
 import os
 from flask import Flask, render_template, request, send_file
 from pytube import YouTube
@@ -66,8 +42,20 @@ def convert_video_to_audio(video_file_path):
 
     # Close the video clip
     video_clip.close()
-
     return audio_file_path
+
+def save_file(file_content, file_name):
+    file_path = os.path.join(os.path.expanduser('~'), file_name)
+    if os.path.exists(file_path):
+        print("File already exists. Do you want to overwrite? (y/n)")
+        response = input()
+        if response.lower() != 'y':
+            print("File not saved.")
+            return
+    with open(file_path, 'wb') as f:
+        f.write(file_content)
+    print(f"File '{file_name}' saved successfully.")
+
 @app.route('/play_video')
 def play_video():
     video_file_path = request.args.get('video_file_path')
@@ -87,3 +75,4 @@ def play_audio():
 
 if __name__ == '__main__':
     app.run(debug=True,  host='0.0.0.0', port=8080)
+
